@@ -38,7 +38,7 @@ npm install   # or npm install
 Create a `.env` file at the root:
 
 ```env
-PORT = https://assignment-3-xi-kohl.vercel.app
+PORT = https://assignment-4-backend-ten.vercel.app
 
 DATABASE_URL = mongodb+srv://bakiabdullah:bQQV1JxFXSNVtbHn@cluster0.uqgxsrk.mongodb.net/library-management?retryWrites=true&w=majority&appName=Cluster0
 ```
