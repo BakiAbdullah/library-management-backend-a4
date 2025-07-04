@@ -33,16 +33,22 @@ booksRoutes.get("/books", async (req: Request, res: Response) => {
     const genre = filter?.toString().toUpperCase();
     const sortField = sortBy?.toString() || "createdAt";
     const sortOrder = sort === "asc" ? 1 : -1;
-    const sortLimit = parseInt(limit as string) || 10;
 
     let query: any = {};
     if (genre) {
       query.genre = genre;
     }
 
-    const data = await Books.find(query)
-      .sort({ [sortField]: sortOrder })
-      .limit(sortLimit);
+    let booksQuery = Books.find(query).sort({ [sortField]: sortOrder });
+
+    if (limit) {
+      const sortLimit = parseInt(limit as string);
+      if (!isNaN(sortLimit)) {
+        booksQuery = booksQuery.limit(sortLimit);
+      }
+    }
+
+    const data = await booksQuery;
 
     res.status(201).json({
       success: true,
