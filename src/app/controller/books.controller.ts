@@ -5,7 +5,7 @@ import { BorrowedBook } from "../models/borrow.model";
 export const booksRoutes = express.Router();
 
 // CREATE a book
-booksRoutes.post("/books", async (req: Request, res: Response) => {
+booksRoutes.post("/create-book", async (req: Request, res: Response) => {
   try {
     const body = req.body;
     const data = await Books.create(body);
@@ -66,11 +66,11 @@ booksRoutes.get("/books", async (req: Request, res: Response) => {
 });
 
 // GET a book by ID
-booksRoutes.get("/books/:bookId", async (req: Request, res: Response) => {
+booksRoutes.get("/books/:id", async (req: Request, res: Response) => {
   try {
-    const bookId = req.params.bookId;
+    const id = req.params.id;
 
-    const data = await Books.findById(bookId);
+    const data = await Books.findById(id);
     res.status(201).json({
       success: true,
       message: "Book retrieved successfully",
@@ -87,11 +87,11 @@ booksRoutes.get("/books/:bookId", async (req: Request, res: Response) => {
 });
 
 // Update a book by ID
-booksRoutes.put("/books/:bookId", async (req: Request, res: Response) => {
+booksRoutes.put("/edit-book/:id", async (req: Request, res: Response) => {
   try {
-    const bookId = req.params.bookId;
+    const id = req.params.id;
     const updatedBody = req.body;
-    const data = await Books.findByIdAndUpdate(bookId, updatedBody, {
+    const data = await Books.findByIdAndUpdate(id, updatedBody, {
       new: true,
     });
 
@@ -150,7 +150,7 @@ booksRoutes.post("/borrow", async (req: Request, res: Response) => {
 });
 
 // Get borrow books summary (Aggregation pipeline)
-booksRoutes.get("/borrow", async (req: Request, res: Response) => {
+booksRoutes.get("/borrow-summary", async (req: Request, res: Response) => {
   try {
     const data = await BorrowedBook.aggregate([
       //stage-1
