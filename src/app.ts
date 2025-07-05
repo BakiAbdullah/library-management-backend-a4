@@ -4,7 +4,11 @@ import { booksRoutes } from "./app/controller/books.controller";
 
 const app: Application = express();
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://library-management-app-two-sepia.vercel.app"],
+  })
+);
 
 app.use("/api", booksRoutes);
 
